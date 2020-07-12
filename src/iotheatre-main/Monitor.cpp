@@ -1,6 +1,7 @@
 #include "Monitor.h"
 #include <Arduino.h>
 #include <Ticker.h> // This is the ESP32 ticker library which uses the ESP32 built in timer, so no interrupts or loop() requirement
+#include "Web.h"
 
 Monitor::Monitor() {
 }
@@ -17,6 +18,10 @@ void Monitor::blink(int pin) {
 void Monitor::tick() {
   wifiCounter++;
   //heartbeatCounter++;
+
+  // We do the web loop in here as it's short and will not be impacted
+  // by longer running loop() functions like motor control
+  Web::get().loop();
 
   int c = (Network::get().isConnected() ? MONITOR_OKCOUNTER : MONITOR_WAITCOUNTER);
   if( wifiCounter > c ) {

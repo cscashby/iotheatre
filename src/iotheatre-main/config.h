@@ -9,7 +9,7 @@
 
 // ==== Network configuration
 // WifiManager configuration
-#define WM_CONNECT_TIMEOUT  60  // seconds - also used for runtime connection checking (not just startup)
+#define WM_CONNECT_TIMEOUT  10  // seconds
 #define WM_PORTAL_TIMEOUT   300
 #define WM_SSID             "iotheatre"
 #define WM_KEY              "iotheatre"
@@ -39,6 +39,28 @@
 #define MONITOR_TICKER      100 // ms base timer
 #define MONITOR_OKCOUNTER   20  // Counts of ticker to identify OK
 #define MONITOR_WAITCOUNTER 1   // Counts of ticker to identify 'user intervention required'
+
+// ==== Stepper configuration
+// Pins (GPIO numbers)
+#define STEPPER_PIN_EN      5   // Pin 34
+#define STEPPER_PIN_STEP    18  // Pin 35
+#define STEPPER_PIN_DIR     19  // Pin 38
+#define STEPPER_PIN_RX      21  // Pin 42
+#define STEPPER_PIN_TX      22  // Pin 39
+#define STEPPER_SERIAL Serial2  // We remap hardware serial to pins for RX/TX
+// Stepper motor settings
+#define STEPPER_RSENSE    0.11f // ohm 
+#define STEPPER_ADDRESS   0b00  // MS1/2 pins to gnd
+#define STEPPER_TOFF        5
+#define STEPPER_RMSCURR  1200   //mA
+#define STEPPER_USTEPS      16   // Microsteps (1/n)
+#define STEPPER_DIRECTION  true // 'shaft' param for forwards
+// Stepper motor timings
+#define STEPPER_REVSTEPS    200 // steps per Revolution
+#define STEPPER_SPEED       200 // RPM (max 200?)
+// Stepper motor calcs
+#define STEPPER_REVUSTEPS   (STEPPER_USTEPS * STEPPER_REVSTEPS)
+#define STEPPER_STEPDELAY   (1000000.0 * ((60.0 / STEPPER_SPEED) / STEPPER_REVUSTEPS) / 2.0) // microseconds delay per half step
 
 // ==== Debug stuff
 #ifdef DEBUG

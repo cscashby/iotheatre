@@ -1,6 +1,7 @@
 #ifndef Web_h
 #define Web_h
-
+#include <WebServer.h>
+#include "Network.h"
 #include "config.h"
 
 class Web {
@@ -9,12 +10,15 @@ class Web {
     void begin();
     void loop();
 
+    void startServer();
+    void stopServer();
+
     static Web& get() {
       static Web instance;
       return instance;
     }                        
   private:
-    
+    bool running;
 };
 
-#endif
+#endif // Web_h

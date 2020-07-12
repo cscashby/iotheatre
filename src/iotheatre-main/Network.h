@@ -3,6 +3,7 @@
 #include <WiFiManager.h>  // https://github.com/tzapu/WiFiManager
 
 #include "config.h"
+#include "Web.h"
 
 class Network {
   public:
@@ -26,4 +27,4 @@ class Network {
     long lastConnected = -1; // millis() when device was last online
 };
 
-#endif
+#endif // Network_h

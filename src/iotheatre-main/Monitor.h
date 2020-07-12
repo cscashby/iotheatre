@@ -22,4 +22,4 @@ class Monitor {
     static void tick();
 };
 
-#endif
+#endif // Monitor_h

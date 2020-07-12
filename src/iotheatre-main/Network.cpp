@@ -3,6 +3,11 @@
 Network::Network() {
 }
 
+void Network::reset() {
+  INFO_PRINT(("Resetting stored network config"));
+  wifiManager.resetSettings();
+}
+
 void Network::begin() {
   // ===== Setup Wifi
   WiFi.mode(WIFI_STA); // explicitly set mode, esp defaults to STA+AP    
@@ -26,9 +31,9 @@ void Network::begin() {
   if( wifiManager.autoConnect(WM_SSID, WM_KEY) ) {
     INFO_PRINT(("Wifi connected"));
     lastConnected = millis();
-  } else {
-    DEBUG_PRINT(("No connection from autoConnect so we need to open the portal in loop()"));
   }
+  Web::get().startServer();
+  wifiManager.startWebPortal();
 }
 
 void Network::loop() {
@@ -47,9 +52,4 @@ void Network::loop() {
       #endif
     }
   }
-}
-
-void Network::reset() {
-  INFO_PRINT(("Resetting stored network config"));
-  wifiManager.resetSettings();
 }
