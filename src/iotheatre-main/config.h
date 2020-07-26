@@ -63,8 +63,13 @@
 #define STEPPER_REVUSTEPS   (STEPPER_USTEPS * STEPPER_REVSTEPS)
 #define STEPPER_STEPDELAY   (1000000.0 * ((60.0 / STEPPER_SPEED) / STEPPER_REVUSTEPS) / 2.0) // microseconds delay per half step
 
-// Clock calibration
+// Motor configuration
+// Our motor is a clock, so define the 12 hour revolution count
 #define CLOCK_REVS_12H   31.99  // revolutions for 12 hours
+// Motor calibration units
+#define MOTOR_REVS_PERUNIT      CLOCK_REVS_12H / (12*60)
+                                // unit is a minute
+#define MOTOR_UNITS       "Min" // Display text for unit
 
 // ==== Debug stuff
 #ifdef DEBUG

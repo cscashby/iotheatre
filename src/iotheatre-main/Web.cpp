@@ -33,11 +33,11 @@ void Web::begin() {
     } else {
       INFO_PRINT(("Move requested for motor 1"));
       Motor::get().enable();
-      float mins = String(server.arg("revs")).toFloat();
-      float revs = CLOCK_REVS_12H / (12*60) * mins;
+      float unitcount = String(server.arg("unitcount")).toFloat();
+      float revs = MOTOR_REVS_PERUNIT * unitcount;
       if( revs == 0 ) revs = 1;
       #ifdef DEBUG
-        if (Serial) { Serial.print("Mins: " ); Serial.print(mins); Serial.print(" = revs: " ); Serial.println(revs); }
+        if (Serial) { Serial.print(MOTOR_UNITS); Serial.print(": "); Serial.print(unitcount); Serial.print(" = revs: " ); Serial.println(revs); }
       #endif
       
       if( server.arg("direction") ==  "forward" ) {
