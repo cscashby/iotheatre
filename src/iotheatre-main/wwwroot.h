@@ -12,8 +12,8 @@ const char WEBPAGE_ROOT[] PROGMEM = R"=====(
   <form action="/motor/move/1" method="post" name="motor_form" id="motor_form">
     <p><a href="/motor/enable/1">Enable motor</a></p>
     <p><a href="/motor/disable/1">Disable motor</a></p>
-    <caption for="motor_revs">Revolutions (can be fractional):&nbsp;</caption>
-    <input type="text" id="motor_revs" value="1.0" name="revs"/><br/>
+    <caption for="motor_revs">Minutes to move clock (can be fractional):&nbsp;</caption>
+    <input type="text" id="motor_mins" value="60.0" name="revs"/><br/>
     <input type="radio" id="motor_forward" value="forward" name="direction"/>
     <caption for="motor_forward">Forward</caption><br/>
     <input type="radio" id="motor_backward" value="backward" name="direction"/>

@@ -39,6 +39,7 @@
 #define MONITOR_TICKER      100 // ms base timer
 #define MONITOR_OKCOUNTER   20  // Counts of ticker to identify OK
 #define MONITOR_WAITCOUNTER 1   // Counts of ticker to identify 'user intervention required'
+#define MONITOR_BATSTATUS   10  // Counts of ticker to report battery status
 
 // ==== Stepper configuration
 // Pins (GPIO numbers)
@@ -57,14 +58,18 @@
 #define STEPPER_DIRECTION  true // 'shaft' param for forwards
 // Stepper motor timings
 #define STEPPER_REVSTEPS    200 // steps per Revolution
-#define STEPPER_SPEED       200 // RPM (max 200?)
+#define STEPPER_SPEED       100 // RPM (max 200?)
 // Stepper motor calcs
 #define STEPPER_REVUSTEPS   (STEPPER_USTEPS * STEPPER_REVSTEPS)
 #define STEPPER_STEPDELAY   (1000000.0 * ((60.0 / STEPPER_SPEED) / STEPPER_REVUSTEPS) / 2.0) // microseconds delay per half step
 
+// Clock calibration
+#define CLOCK_REVS_12H   31.99  // revolutions for 12 hours
+
 // ==== Debug stuff
 #ifdef DEBUG
-  #define DEBUG_PRINT(X) Serial.print("D "); \
+  #define DEBUG_PRINT(X) if (Serial) { \
+    Serial.print("D "); \
     Serial.print(millis()); \
     Serial.print(": "); \
     Serial.print(X); \
@@ -74,13 +79,14 @@
     Serial.print(__FILE__); \
     Serial.print(':'); \
     Serial.print(__LINE__); \
-    Serial.println(")");
+    Serial.println(")"); }
   #define INFO
 #else
   #define DEBUG_PRINT(X)
 #endif
 #ifdef INFO
-  #define INFO_PRINT(X) Serial.print("I "); \
+  #define INFO_PRINT(X) if (Serial) { \
+    Serial.print("I "); \
     Serial.print(millis()); \
     Serial.print(": "); \
     Serial.print(X); \
@@ -90,13 +96,14 @@
     Serial.print(__FILE__); \
     Serial.print(':'); \
     Serial.print(__LINE__); \
-    Serial.println(")");
+    Serial.println(")"); };
   #define WARN
 #else
   #define INFO_PRINT(X)
 #endif
 #ifdef WARN
-  #define WARN_PRINT(X) Serial.print("W "); \
+  #define WARN_PRINT(X) if (Serial) { \
+    Serial.print("W "); \
     Serial.print(millis()); \
     Serial.print(": "); \
     Serial.print(X); \
@@ -106,11 +113,12 @@
     Serial.print(__FILE__); \
     Serial.print(':'); \
     Serial.print(__LINE__); \
-    Serial.println(")");
+    Serial.println(")"); };
 #else
   #define WARN_PRINT(X)
 #endif
-#define ERROR_PRINT(X) Serial.print("E "); \
+#define ERROR_PRINT(X) if (Serial) { \
+  Serial.print("E "); \
   Serial.print(millis()); \
   Serial.print(": "); \
   Serial.print(X); \
@@ -120,6 +128,5 @@
   Serial.print(__FILE__); \
   Serial.print(':'); \
   Serial.print(__LINE__); \
-  Serial.println(")");
-
+  Serial.println(")"); };
 #endif

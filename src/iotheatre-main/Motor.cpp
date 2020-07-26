@@ -22,12 +22,14 @@ void Motor::begin() {
   driver.pwm_autoscale(true);
 
   #ifdef DEBUG
-    Serial.print("Motor initiated status: ");
-    Serial.println(driver.DRV_STATUS(), BIN);
-    Serial.print("Step delay: ");
-    Serial.print(STEPPER_STEPDELAY);
-    Serial.print(", uSteps per revolution: ");
-    Serial.println(STEPPER_REVUSTEPS);
+    if (Serial) {
+      Serial.print("Motor initiated status: ");
+      Serial.println(driver.DRV_STATUS(), BIN);
+      Serial.print("Step delay: ");
+      Serial.print(STEPPER_STEPDELAY);
+      Serial.print(", uSteps per revolution: ");
+      Serial.println(STEPPER_REVUSTEPS);
+    }
   #endif
 }
 
